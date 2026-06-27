@@ -27,14 +27,14 @@ The setup script will output the exact command you need to activate the environm
 
 ## Running the Exercise
 
-Once your environment is active, open `svm_exercise.py` in your favorite IDE or text editor and follow the instructions inside. You should read it top-to-bottom, paying special attention to comments and docstrings, and follow the instructions therein.
+Once your environment is active, open `svm_exercise.py` in your favorite IDE or text editor. Read through the file from top to bottom, paying special attention to the comments and docstrings, and follow the instructions as they appear.
 
-When instructed by the file, you can run the code either from your IDE or from your terminal using:
+When prompted by the text, you can run the code either from your IDE or from your terminal using:
 ```bash
 python svm_exercise.py
 ```
 
-Just make sure the Python virtual environment is activated.
+Just make sure the Python virtual environment is active.
 
 ## Authorship and License
 
