@@ -1,6 +1,8 @@
-# Python Project Setup
+# Support Vector Machines
 
-This repository uses a dedicated setup script to ensure you never bloat your global Python installation.
+This repository contains an exercise meant to explain classification problems in Machine Learning and Support Vector Machines.
+
+It uses a dedicated setup script to ensure ease of use, minimal dependencies and portability.
 
 ## Prerequisites
 * **Python 3.11+** installed on your system.
@@ -33,3 +35,6 @@ python svm_exercise.py
 ```
 
 Just make sure the Python virtual environment is activated.
+
+### Author: Frank William Hammond Espinosa
+I claim no authorship on the provided image nor on the setup script; I do claim authorship of the rest of the files in the repository.
