@@ -1,17 +1,17 @@
 """
 In this document, we will learn about classification tasks and Support Vector Machines
-(called SVMs from now on, both in text and code). Please read carefully the doctexts and
+(called SVMs from now on, both in text and code). Please read carefully the docstrings and
 comments intertwined with the code and do not execute the file until explicitly told so
-in a doctext. Also do not modify the code until explicitly told so in a doctext or
+in a docstring. Also do not modify the code until explicitly told so in a docstring or
 once you have finished reading through it once.
 
-Consider a dataset containing only numerical, continuous variables. As an example,
-think of the famous Fisher's "iris" dataset, that contains numerical measurements in
-centimiters of the lenght and width of the petals and sepals of a set of 150 flowers.
+Consider a dataset containing only numerical variables with continuous values. As an example,
+think of Fisher's famous "iris" dataset, which contains numerical measurements in
+centimiters of the length and width of the petals and sepals of a set of 150 flowers.
 The flowers all belong to the genus Iris, but they're members of three different species
 of that genus: Virginica, Setosa and Versicolor (the dataset contains 50 samples of
-each). A classification task is one that answers the question: ¿Can one say to which
-species a given flower belongs to only by looking at its measurements?. Mathematically,
+each). A classification task is answering the question: ¿Only by looking at its measurements,
+to which species does a given flower most likely belong to?. Mathematically,
 a classifier is a function that takes a numerical vector (in R4, in this case) and
 outputs a label belonging to some discrete set ({'Virginica', 'Setosa', 'Versicolor'} or
 {'0', '1', '2'}, in this case) whose elements are called labels. The classification problem
@@ -30,16 +30,16 @@ label lay on one side of the hyperplane, and all samples having the other label 
 other side of the hyperplane. Of course, for many datasets such a hyperplane does not exist
 (we'll talk about these later), but nevertheless it is possible to find one that
 minimizes the error in some sense. But for those datasets in which a plane exists, it is often
-possible to find infinitely many hyperplanes. In this case, it is clearly interesting to
+possible to find infinitely many such hyperplanes. In this case, it is clearly wise to
 try to maximize the distance between the plane and the closest points to it, since this will make
 our classifier more robust to noise or errors in the measurements (cf. 'margins.png').
 
-We will not cover the details, but it is interesting to know that an optimization problem
-can be posed for this, and it can be naturally reduced to a quadratic minimization problem with
-affine constraints. The theory of Karush-Kuhn-Tucker can then be invoked to solve it explicitly.
-There is a natural correspondece between each vector in the training dataset and each affine
-constraint of the problem. When solving the system of equations of the KKT conditions, there will
-be some active constraints. The vectors associated to those active constraints are called
+We will not cover the details of this, but it is necessary to know that an optimization problem
+can be posed for this setting, and it can be naturally reduced to a quadratic minimization
+problem with affine constraints. The theory of Karush-Kuhn-Tucker can then be invoked to solve
+it explicitly. There is a natural correspondece between each vector in the training dataset and
+each affine constraint of the problem. When solving the system of equations of the KKT conditions,
+there will be some active constraints. The vectors associated to those active constraints are called
 support vectors, and hence the name of the algorithm. Geometrically, support vectors are
 the points which are closest (minimizers of the distance) to the separating hyperplane.
 
@@ -78,7 +78,7 @@ testing_labels = labels[TRAINING_SAMPLES:]
 
 """
 This is scikit-learn's implementation of a SVM. Notice how we pass it the 'kernel=linear'
-parameter to specify we want the linear classifier (more on why it's a 'kernel' and which others
+parameter to specify we want the linear classifier (more on why it's a "kernel" and which others
 exist later!)
 """
 classifier = svm.SVC(kernel='linear')
@@ -87,7 +87,7 @@ classifier = svm.SVC(kernel='linear')
 Now we can compute the solution of the optimization problem in order to find our hyperplane.
 scikit-learn implements this in a simple-to-use '.fit' function.
 """
-classifier.fit(points[:TRAINING_SAMPLES, :], labels[:TRAINING_SAMPLES])
+classifier.fit(training_points, training_labels)
 
 # Plot everything (skip this code)
 # ----- (Start of unimportant code)
@@ -135,9 +135,9 @@ of this in the PS1 of your terminal, or somewhere in your IDE).
 
 Spend a bit of time examining the figure and its legend while you read this. Notice how
 there is a black line in the middle of the figure: this is the separating hyperplane (of
-course, a hyperplane is just a line in R2!). This should perfectly separate the two classes
+course, a hyperplane is just a line in R2!). This perfectly splits the two classes
 of points since the dataset was generated to be linearly separable.
-There are two dotted lines which are parallel to the separating hyperplane. Notice how
+There are two dotted lines that are parallel to the separating hyperplane. Notice how
 all testing samples are outside of the region enclosed by the dotted lines, except the
 support vectors, which are exactly at its boundary. The distance between those is defined
 as the *margin* of the classifier. It is the largest possible among all hyperplanes separating
@@ -175,18 +175,18 @@ linearly separable or almost linearly separable, and then solve the classificati
 images. Provided we are able to find such a function (this is done via trial-and-error for each
 problem specifically), this works quite well for small datasets. But for larger problems or
 computationally-constrained environments (think of a system with a camera that has to classify
-fish passing through a conveyor belt and only has a milliseconds to produce an output for each fish)
-it can become too computationally expensive to compute the image by that function of each point we
-want to classify, and then the associated inner product. Mathematics provides a very beautiful
-and sophisticated way to mitigate this, using the theory of Reproducing Kernel Hilbert Spaces, which
-is worth commenting but sadly cannot be covered in due detail here. The main element here is a
-'kernel' function that allows efficient computation of the quantities necessary for classification.
-Not all mapping functions admit a kernel, nor are all kernels useful for computation; but they allow
-for a great degree of flexibility while keeping computational cost admissible. In fact, some kernels
-(specifically the Gaussian ones) correspond to mapping the original points to infinite-dimensional
-(Hilbert) spaces! A general heuristic here is that the higher the dimension, the easier it is to linearly
-separate points, since there's more hyperplanes to choose from; so Gaussian kernels tend to work quite
-well.
+fish passing through a conveyor belt and only has milliseconds to produce an output for each fish)
+it can become too computationally expensive to calculate the image by that function of each point we
+want to classify, and then the associated inner product in a high-dimensional space. Mathematics
+provides a very beautiful and sophisticated way to mitigate this, using the theory of Reproducing
+Kernel Hilbert Spaces, which is worth commenting but sadly cannot be covered in due detail here.
+The main element here is a "kernel" function that allows efficient computation of the quantities
+necessary for classification. Not all mapping functions admit a kernel, nor are all kernels useful
+for computation; but they allow for a great degree of flexibility while keeping computational cost
+admissible. In fact, some kernels (specifically the Gaussian ones) correspond to mapping the original
+points to infinite-dimensional (Hilbert) spaces! A general heuristic here is that the higher the
+dimension, the easier it is to linearly separate points, since there's more hyperplanes to choose from;
+so Gaussian kernels tend to work quite well.
 
 To see this in action, go to line 66 of this file and replace it by the following:
 'points, labels = datasets.make_circles(noise=0.1, factor=0.5, random_state=SEED)'
