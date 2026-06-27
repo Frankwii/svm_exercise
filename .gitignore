@@ -1,0 +1,30 @@
+# --- Python Environment ---
+# Prevents committing the local virtual environment folder
+.venv/
+venv/
+ENV/
+env/
+
+# --- Python Cache & Compiled Files ---
+# Keeps bytecode files and __pycache__ folders out of the repo
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# --- Operating System Files ---
+# Ignores OS-specific junk files
+.DS_Store
+Thumbs.db
+
+# --- IDEs and Editors ---
+# Ignores configuration files for VS Code and PyCharm
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
