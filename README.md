@@ -36,5 +36,10 @@ python svm_exercise.py
 
 Just make sure the Python virtual environment is activated.
 
-### Author: Frank William Hammond Espinosa
-I claim no authorship on the provided image nor on the setup script; I do claim authorship of the rest of the files in the repository.
+## Authorship and License
+
+**Author:** Frank William Hammond Espinosa
+
+The core exercise files (such as `svm_exercise.py`) are open-source and released under the [MIT License](LICENSE). 
+
+*Note: I claim no authorship over the provided image nor the `setup_env.py` script. These are included purely for educational convenience.*
